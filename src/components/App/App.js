@@ -7,15 +7,33 @@ import { Container } from './App.styled';
 import './App.css';
 
 export default function App() {
-  const [options, setOptions] = useState(['good', 'neutral', 'bad'])
-    const onLeaveFeedback = e => {
-   setOptions(prevOptions => 
-      prevOptions[e] + 1,
-    );
+
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const feedback = {good, bad, neutral}
+  const onLeaveFeedback = option => {
+    switch (option) {
+      case 'good':
+        setGood(prevGood=>prevGood+1)
+        break
+      case 'neutral':
+        setNeutral(prevNeutral => prevNeutral + 1)
+        break
+      case 'bad':
+        setBad(prevBad => prevBad + 1)
+        break
+      default:
+        return
+   }
+    
+   
+    
   };
   return (
      <Container>
-         <SectionTitle title="Please leave feedback">/           <FeedbackOptions
+      <SectionTitle title="Please leave feedback">
+        <FeedbackOptions
             options={['good', 'neutral', 'bad']}
             onLeaveFeedback={onLeaveFeedback}
           />
