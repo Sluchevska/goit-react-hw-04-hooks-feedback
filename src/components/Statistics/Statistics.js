@@ -12,18 +12,15 @@ export default function Statistics({
 }) {
   return (
     <Container>
-      {
-        <StatSection>
-          <Ul>
-
+      <StatSection>
+        <Ul>
           <Li>Good: {good} </Li>
           <Li>Neutral: {neutral} </Li>
           <Li>Bad: {bad} </Li>
           <Li>Total: {total} </Li>
           <Li>Positive Feedback: {positivePercentage}% </Li>
-          </Ul>
-        </StatSection>
-      }
+        </Ul>
+      </StatSection>
     </Container>
   );
 }

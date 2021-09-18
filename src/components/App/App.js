@@ -4,7 +4,6 @@ import Statistics from '../Statistics/Statistics';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import Notification from '../Notification/Notification';
 import { Container } from './App.styled';
-import './App.css';
 
 export default function App() {
   const [good, setGood] = useState(0);
@@ -38,6 +37,7 @@ export default function App() {
 
   const total = countTotalFeedback();
   const positivePercentage = countPositiveFeedbackPercentage(total);
+  const isSowStatistics = total > 0;
   return (
     <Container>
       <SectionTitle title="Please leave feedback">
@@ -47,7 +47,7 @@ export default function App() {
         />
       </SectionTitle>
       <SectionTitle title="Statistics">
-        {total > 0 ? (
+        {isSowStatistics && (
           <Statistics
             good={good}
             neutral={neutral}
@@ -55,11 +55,9 @@ export default function App() {
             total={total}
             positivePercentage={positivePercentage}
           />
-        ) : (
-          <Notification message="No feedback given" />
         )}
+        {!isSowStatistics && <Notification message="No feedback given" />}
       </SectionTitle>
     </Container>
   );
 }
-
