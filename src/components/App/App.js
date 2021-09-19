@@ -6,33 +6,25 @@ import Notification from '../Notification/Notification';
 import { Container } from './App.styled';
 
 export default function App() {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const [feedbacks, setFeedbacks] = useState({ good: 0, neutral: 0, bad: 0 });
 
   const onLeaveFeedback = option => {
-    switch (option) {
-      case 'good':
-        setGood(prevGood => prevGood + 1);
-        break;
-      case 'neutral':
-        setNeutral(prevNeutral => prevNeutral + 1);
-        break;
-      case 'bad':
-        setBad(prevBad => prevBad + 1);
-        break;
-      default:
-        return;
-    }
+    setFeedbacks(prevState => ({
+      ...prevState,
+      [option]: prevState[option] + 1,
+    }));
   };
 
   const countTotalFeedback = () => {
-    return good + neutral + bad;
+    return Object.values(feedbacks).reduce(
+      (acc, feedback) => acc + feedback,
+      0,
+    );
   };
 
   const countPositiveFeedbackPercentage = total => {
     total = countTotalFeedback();
-    return Math.round((good * 100) / total);
+    return Math.round((feedbacks.good * 100) / total);
   };
 
   const total = countTotalFeedback();
@@ -49,9 +41,9 @@ export default function App() {
       <SectionTitle title="Statistics">
         {isSowStatistics && (
           <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
+            good={feedbacks.good}
+            neutral={feedbacks.neutral}
+            bad={feedbacks.bad}
             total={total}
             positivePercentage={positivePercentage}
           />
